@@ -44,6 +44,7 @@ group :development, :test do
   
   
   gem 'carrierwave' 
-  gem "fog-aws"
+
+  gem 'devise'
 end
 
