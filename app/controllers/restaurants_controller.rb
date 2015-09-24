@@ -10,7 +10,14 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+    @reviews = Review.where(restaurant_id: @restaurant.id).order("created_at DESC")
+    if @reviews.blank?
+      @avg_rating = 0
+    else
+      @avg_rating = @reviews.average(:rating).round(2)
+    end
   end
+  
 
   # GET /restaurants/new
   def new
@@ -34,7 +41,7 @@ class RestaurantsController < ApplicationController
         format.html { render :new }
         format.json { render json: @restaurant.errors, status: :unprocessable_entity }
       end
-    end
+  end
   end
 
   # PATCH/PUT /restaurants/1
